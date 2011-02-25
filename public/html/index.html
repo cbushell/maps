@@ -1,0 +1,27 @@
+<!DOCTYPE html "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+  <script type="text/javascript" src="../javascript/jquery-1.5.1.js"></script>
+
+  <script type="text/javascript"
+          src="http://www.google.com/jsapi?key=ABQIAAAAL-DsfwMEjlzns8WlGEvbZhRZSaRI1WLM3MY6TL5by5zFaq2O2hTGXR44bKPtoQip2vr-e84FWxtoGg=false"></script>
+
+
+  <script type="text/javascript" src="../javascript/places.js"></script>
+  <script type="text/javascript" src="../javascript/map.js"></script>
+
+  <script type="text/javascript">
+    google.load("maps", "2");
+
+    $(document).ready(function() {
+      var map = new Map(15, "map_canvas", places.london);
+    })
+  </script>
+</head>
+<body>
+<div id="map_canvas" style="width: 800px; height: 600px"></div>
+</body>
+</html>
