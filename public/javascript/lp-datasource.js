@@ -1,23 +1,40 @@
 function LonelyPlanetDataSource() {
-  this.url = "/api/bounding_boxes";
 
-  this.getPlacesOfInterest = function(north, south, east, west, callback) {
-    $.get(this.url + "/" + north + "," + south + "," + east + "," + west + "/pois", function(data) {
-      var placesOfInterest = [];
-
-      $(data).find("poi").each(function() {
-        var place = {
-          id : $(this).find("id").text(),
-          name : $(this).find("name").text(),
-          category : $(this).find("poi-type").text(),
-          latitude : $(this).find("latitude").text(),
-          longitude : $(this).find("longitude").text()
-        };
-
-        placesOfInterest.push(place);
-      });
-
-      callback(placesOfInterest);
-    }, "xml");
-  };
 }
+
+
+LonelyPlanetDataSource.prototype.getPlacesOfInterest = function(north, south, east, west, callback) {
+  var self = this;
+  
+  $.get(this._url(north, south, east, west), function(data) {
+    var places = [];
+
+    $(data).find("poi").each(function() {
+      var place = self._parsePlaceOfInterest($(this));
+      places.push(place);
+    });
+
+    callback(places);
+  }, "xml");
+};
+
+
+LonelyPlanetDataSource.prototype._parsePlaceOfInterest = function(xml) {
+  return {
+    id : xml.find("id").text(),
+    name : xml.find("name").text(),
+    category : xml.find("poi-type").text(),
+    latitude : xml.find("latitude").text(),
+    longitude : xml.find("longitude").text()
+  };
+};
+
+
+LonelyPlanetDataSource.prototype._url = function(north, south, east, west) {
+  return "/api/bounding_boxes/" +
+          [ north,
+            south,
+            east,
+            west].join(",") +
+          "/pois";
+};
