@@ -1,10 +1,9 @@
 var places = {
   current : {
-    name : google.loader.ClientLocation.address.city,
-    latitude : google.loader.ClientLocation.latitude,
-    longitude : google.loader.ClientLocation.longitude
+//    name : google.loader.ClientLocation.address.city,
+//    latitude : google.loader.ClientLocation.latitude,
+//    longitude : google.loader.ClientLocation.longitude
   },
-
   london : {
     name : "London",
     latitude : 51.504362,

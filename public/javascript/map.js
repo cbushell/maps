@@ -1,36 +1,40 @@
-function Map(canvas, location) {
-  this._inintializeMap(canvas, location);
+function Map(canvas, location, datasource) {
+  var mapOptions = {
+    zoom: 15,
+    mapTypeId: google.maps.MapTypeId.HYBRID,
+    center: new google.maps.LatLng(location.latitude, location.longitude)
+  };
+
+  this.gmap = new google.maps.Map(document.getElementById(canvas), mapOptions);
+
+
+  var self = this;
+
+  google.maps.event.addListener(this.gmap, 'bounds_changed', function() {
+    self._plot(datasource, self._bounds(this.getBounds()));
+  });
 }
 
-
-Map.prototype.plot = function(datasource) {
+Map.prototype._plot = function(datasource, bounds) {
   var self = this;
-  var bounds = this._bounds();
 
   datasource.getPlacesOfInterest(bounds, function(places) {
     places.forEach(function(place) {
-      var point = new GLatLng(place.latitude, place.longitude);
-      var marker = new GMarker(point);
-      self.gmap.addOverlay(marker);
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(place.latitude, place.longitude)
+      });
+
+      marker.setMap(self.gmap);
     });
   });
 };
 
 
-Map.prototype._inintializeMap = function(canvas, location) {
-  var zoom = 15;
-
-  this.gmap = new GMap2(document.getElementById(canvas));
-  this.gmap.setCenter(new GLatLng(location.latitude, location.longitude), zoom);
-  this.gmap.setMapType(G_HYBRID_MAP);
-};
-
-
-Map.prototype._bounds = function() {
-  var bounds = this.gmap.getBounds();
-
-  return {northEastLat: bounds.getNorthEast().lat(),
-          southWestLat: bounds.getSouthWest().lat(),
-          northEastLong: bounds.getNorthEast().lng(),
-          southWestLong: bounds.getSouthWest().lng()}
+Map.prototype._bounds = function(bounds) {
+  return {
+    northEastLat: bounds.getNorthEast().lat(),
+    southWestLat: bounds.getSouthWest().lat(),
+    northEastLong: bounds.getNorthEast().lng(),
+    southWestLong: bounds.getSouthWest().lng()
+  }
 };
