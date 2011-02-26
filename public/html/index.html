@@ -17,10 +17,9 @@
     google.load("maps", "2");
 
     $(document).ready(function() {
-      var map = new Map(15, "map_canvas", places.london);
-      var datasource = new LonelyPlanetDataSource();
-
-      map.plotPlacesOfInterest(datasource);
+      var map = new Map("map_canvas", places.london);
+      var placesOfInterestDataSource = new LonelyPlanetDataSource();
+      map.plot(placesOfInterestDataSource);
     })
   </script>
 </head>

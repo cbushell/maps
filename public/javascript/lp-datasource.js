@@ -5,7 +5,7 @@ function LonelyPlanetDataSource() {
 
 LonelyPlanetDataSource.prototype.getPlacesOfInterest = function(north, south, east, west, callback) {
   var self = this;
-  
+
   $.get(this._url(north, south, east, west), function(data) {
     var places = [];
 
