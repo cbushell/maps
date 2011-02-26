@@ -1,19 +1,3 @@
-function LonelyPlanetDetailsDataSource() {
-  this.url = "/api/pois";
-
-  this.getDetails = function(id, callback) {
-    $.get(this.url, { poi_id: id },
-            function(data) {
-              var name = $(data).find("name").text();
-              var address = $(data).find("address").text();
-              var review = $(data).find("review").text();
-
-              callback({name : name, address : address, review : review});
-            }, "xml");
-  };
-}
-
-
 function LonelyPlanetDataSource() {
   this.url = "/api/bounding_boxes";
 
