@@ -9,15 +9,18 @@
   <script type="text/javascript"
           src="http://www.google.com/jsapi?key=ABQIAAAAL-DsfwMEjlzns8WlGEvbZhRZSaRI1WLM3MY6TL5by5zFaq2O2hTGXR44bKPtoQip2vr-e84FWxtoGg=false"></script>
 
-
   <script type="text/javascript" src="../javascript/places.js"></script>
   <script type="text/javascript" src="../javascript/map.js"></script>
+  <script type="text/javascript" src="../javascript/lp-datasource.js"></script>
 
   <script type="text/javascript">
     google.load("maps", "2");
 
     $(document).ready(function() {
       var map = new Map(15, "map_canvas", places.london);
+      var datasource = new LonelyPlanetDataSource();
+
+      map.plotPlacesOfInterest(datasource);
     })
   </script>
 </head>
