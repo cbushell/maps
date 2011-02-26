@@ -3,10 +3,10 @@ function LonelyPlanetDataSource() {
 }
 
 
-LonelyPlanetDataSource.prototype.getPlacesOfInterest = function(north, south, east, west, callback) {
+LonelyPlanetDataSource.prototype.getPlacesOfInterest = function(bounds, callback) {
   var self = this;
 
-  $.get(this._url(north, south, east, west), function(data) {
+  $.get(this._url(bounds), function(data) {
     var places = [];
 
     $(data).find("poi").each(function() {
@@ -30,11 +30,11 @@ LonelyPlanetDataSource.prototype._parsePlaceOfInterest = function(xml) {
 };
 
 
-LonelyPlanetDataSource.prototype._url = function(north, south, east, west) {
+LonelyPlanetDataSource.prototype._url = function(bounds) {
   return "/api/bounding_boxes/" +
-          [ north,
-            south,
-            east,
-            west].join(",") +
+          [ bounds.northEastLat,
+            bounds.southWestLat,
+            bounds.northEastLong,
+            bounds.southWestLong].join(",") +
           "/pois";
 };
