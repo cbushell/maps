@@ -1,9 +1,9 @@
-function LonelyPlanetDataSource() {
+function LonelyPlanetDatasource() {
 
 }
 
 
-LonelyPlanetDataSource.prototype.getPlacesOfInterest = function(bounds, callback) {
+LonelyPlanetDatasource.prototype.getPlacesOfInterest = function(bounds, callback) {
   var self = this;
 
   $.get(this._url(bounds), function(data) {
@@ -19,7 +19,7 @@ LonelyPlanetDataSource.prototype.getPlacesOfInterest = function(bounds, callback
 };
 
 
-LonelyPlanetDataSource.prototype._parsePlaceOfInterest = function(xml) {
+LonelyPlanetDatasource.prototype._parsePlaceOfInterest = function(xml) {
   return {
     id : xml.find("id").text(),
     name : xml.find("name").text(),
@@ -30,8 +30,8 @@ LonelyPlanetDataSource.prototype._parsePlaceOfInterest = function(xml) {
 };
 
 
-LonelyPlanetDataSource.prototype._url = function(bounds) {
-  return "/api/bounding_boxes/" +
+LonelyPlanetDatasource.prototype._url = function(bounds) {
+  return "/lp/api/bounding_boxes/" +
           [ bounds.northEastLat,
             bounds.southWestLat,
             bounds.northEastLong,
